@@ -110,13 +110,8 @@ const App = {
             }
         },
         
-        viewDetail(student) {
-            alert(`查看学生 ${student.name} 的详细信息\n\n` +
-                  `学生ID: ${student.id}\n` +
-                  `课程ID: ${student.courseId}\n` +
-                  `课程名称: ${student.courseName}\n` +
-                  `联系电话: ${student.phone}\n` +
-                  `报名意愿: ${student.probability}%`);
+        navigateToDetail(studentId) {
+            window.location.href = `student.html?id=${encodeURIComponent(studentId)}`;
         },
         
         viewCourseDetail(courseId) {

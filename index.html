@@ -43,6 +43,8 @@
             </div>
         </div>
         
+        
+
         <!-- 学生列表 -->
         <div class="student-list">
             <!-- 加载状态 -->
@@ -98,7 +100,7 @@
                     >
                         {{ student.probability }}%
                     </div>
-                    <button class="detail-btn" @click="viewDetail(student)">
+                    <button class="detail-btn" @click="navigateToDetail(student.id)">
                         查看详情
                     </button>
                 </div>

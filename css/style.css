@@ -118,6 +118,9 @@ body {
 .table-header div:nth-child(5) {
     text-align: left;
 }
+/* 主页第6列（意愿值）表头与数据列居中 */
+.table-header div:nth-child(6) { text-align: center; }
+.student-row div:nth-child(6) { text-align: center; }
 
 .student-row {
     padding: 15px 20px;
@@ -306,6 +309,49 @@ body {
     height: 30px;
     animation: spin 1s linear infinite;
     margin: 0 auto 15px;
+}
+
+/* 学生详情（公共样式，可复用在详情页） */
+.detail-content { padding: 20px; }
+.detail-section { margin-bottom: 20px; }
+.section-title { font-size: 16px; font-weight: 600; margin-bottom: 12px; }
+.basic-info-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px 16px; background: #fafbfc; padding: 12px; border-radius: 8px; border: 1px solid #f0f1f2; }
+.basic-info-grid > div { background: #fff; border: 1px solid #eef1f4; border-radius: 8px; padding: 10px 12px; display: flex; align-items: center; gap: 8px; }
+.basic-info-grid .label { color: #666; min-width: 72px; }
+.basic-info-grid span:not(.label) { word-break: break-all; }
+.basic-info-grid .full { grid-column: 1 / -1; }
+.chart-container { background: #fafbfc; border: 1px solid #f0f1f2; border-radius: 8px; padding: 12px; overflow-x: auto; }
+/* 让 Canvas 在容器内自适应宽度（高度由 JS 控制以保证清晰） */
+.chart-container canvas { width: 100%; height: auto; display: block; }
+.participation-list { display: flex; flex-direction: column; gap: 10px; }
+.participation-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 12px; border: 1px solid #f0f1f2; border-radius: 8px; background: #fff; }
+.p-left .p-course { font-weight: 600; margin-bottom: 4px; }
+.p-left .p-meta { font-size: 12px; color: #666; }
+.status-tag { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.status-tag.ok { background: #e6f7e9; color: #2e7d32; }
+.status-tag.warn { background: #fff7e6; color: #ad6800; }
+.status-tag.bad { background: #fdecea; color: #a8071a; }
+/* 参与项右侧上下两行显示：出勤 与 作业 */
+.p-right { display: flex; flex-direction: column; gap: 6px; align-items: flex-end; }
+.tag-row { display: flex; align-items: center; gap: 8px; }
+.tag-label { font-size: 12px; color: #666; }
+@media (max-width: 576px) {
+    .participation-item { align-items: flex-start; }
+    .p-right { align-items: flex-start; }
+}
+
+/* 小按钮类链接风格 */
+.link-btn { border: none; background: none; color: #667eea; cursor: pointer; font-size: 14px; }
+.link-btn:hover { text-decoration: underline; }
+@media (max-width: 768px) { 
+    .basic-info-grid { grid-template-columns: 1fr 1fr; }
+    .basic-info-grid > div { padding: 12px; }
+}
+
+@media (max-width: 576px) {
+    .basic-info-grid { grid-template-columns: 1fr; }
+    .basic-info-grid > div { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .basic-info-grid .label { min-width: auto; font-size: 14px; }
 }
 
 @keyframes spin {

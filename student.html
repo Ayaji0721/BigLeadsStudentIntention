@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>学生详情</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="header">
+        <h1>学生详情</h1>
+    </div>
+
+    <div class="detail-content" id="detailRoot" style="margin: 20px; background: #fff; border-radius: 12px; box-shadow: 0 2px 15px rgba(0,0,0,0.08);">
+        <div style="padding: 16px 20px; border-bottom: 1px solid #e9ecef; display: flex; align-items: center; justify-content: space-between;">
+            <div style="font-weight: 600;">学生ID：<span id="studentIdText">-</span></div>
+            <a href="index.html" class="detail-btn" style="text-decoration: none;">返回列表</a>
+        </div>
+
+        <div style="padding: 20px;">
+            <div class="detail-section">
+                <div class="section-title" style="display:flex; align-items:center; justify-content:space-between; gap:12px;">
+                    <span>基本信息</span>
+                    <button id="toggleInfoBtn" class="link-btn" style="display:none;">展开更多</button>
+                </div>
+                <div class="basic-info-grid">
+                    <div><span class="label">学生ID：</span><span id="fieldId">-</span></div>
+                    <div><span class="label">姓名：</span><span id="fieldName">-</span></div>
+                    <div><span class="label">联系方式：</span><span id="fieldPhone">-</span></div>
+                    <div><span class="label">课程ID：</span><span id="fieldCourseId">-</span></div>
+                    <div><span class="label">课程名称：</span><span id="fieldCourseName">-</span></div>
+                    <div><span class="label">当前意愿：</span>
+                        <span id="fieldProbability" class="probability-value">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <div class="section-title">意向度变化</div>
+                <div class="chart-container">
+                    <canvas id="intentionChart" width="800" height="260"></canvas>
+                </div>
+            </div>
+
+            <div class="detail-section">
+                <div class="section-title">最近课程参与情况</div>
+                <div id="participationList" class="participation-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/student.js"></script>
+    </body>
+    </html>
+
+
