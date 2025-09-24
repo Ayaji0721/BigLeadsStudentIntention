@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>学生转化管理系统</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/v3.2.8/vue.global.prod.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 头部 -->
+        <div class="header">
+            <h1>初中大Leads意向度</h1>
+        </div>
+        
+        <!-- 搜索区域 -->
+        <div class="search-container">
+            <div class="search-type">
+                <button 
+                    :class="{ active: searchType === 'course' }" 
+                    @click="searchType = 'course'"
+                >
+                    按课程搜索
+                </button>
+                <button 
+                    :class="{ active: searchType === 'student' }" 
+                    @click="searchType = 'student'"
+                >
+                    按学生搜索
+                </button>
+            </div>
+            
+            <div class="search-input-group">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    :placeholder="searchType === 'course' ? '请输入课程ID' : '请输入学生ID'"
+                    v-model="searchKeyword"
+                    @keyup.enter="search"
+                >
+                <button class="search-btn" @click="search">搜索</button>
+            </div>
+        </div>
+        
+        <!-- 学生列表 -->
+        <div class="student-list">
+            <!-- 加载状态 -->
+            <div v-if="loading" class="loading">
+                <div class="spinner"></div>
+                <p>正在搜索中...</p>
+            </div>
+            
+            <!-- 空状态 -->
+            <div v-else-if="students.length === 0 && !loading" class="empty-state">
+                <div style="font-size: 60px; margin-bottom: 20px;">📚</div>
+                <p>暂无学生数据</p>
+                <p style="font-size: 14px; margin-top: 8px;">请尝试搜索课程或学生</p>
+            </div>
+            
+            <!-- 学生列表 -->
+            <div v-else>
+                <!-- 表头 -->
+                <div class="table-header">
+                    <div>学生ID</div>
+                    <div>学生姓名</div>
+                    <div>联系方式</div>
+                    <div>课程ID</div>
+                    <div>课程名称</div>
+                    <div class="sort-header">
+                        <span>意愿值</span>
+                        <button class="sort-btn" @click="toggleSort" :class="{ active: sortOrder !== 'none' }">
+                            <div class="sort-indicator" :class="sortOrder">
+                                <div class="up-arrow"></div>
+                                <div class="down-arrow"></div>
+                            </div>
+                        </button>
+                    </div>
+                    <div>操作</div>
+                </div>
+                
+                <!-- 学生行 -->
+                <div 
+                    v-for="student in sortedStudents" 
+                    :key="student.id" 
+                    class="student-row"
+                >
+                    <div class="student-id">{{ student.id }}</div>
+                    <div class="student-name">{{ student.name }}</div>
+                    <div class="contact-info">{{ student.phone }}</div>
+                    <div class="course-id" @click="viewCourseDetail(student.courseId)">
+                        {{ student.courseId }}
+                    </div>
+                    <div class="course-name">{{ student.courseName }}</div>
+                    <div 
+                        class="probability-value"
+                        :class="getProbabilityClass(student.probability)"
+                    >
+                        {{ student.probability }}%
+                    </div>
+                    <button class="detail-btn" @click="viewDetail(student)">
+                        查看详情
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
