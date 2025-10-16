@@ -35,16 +35,16 @@ const App = {
             allStudents: [
                 {
                     id: 'S001',
-                    name: '乐欣',
+                    name: '杨晨',
                     phone: '138****1234',
                     courseId: 'C001',
                     courseName: '高中数学强化班',
-                    probability: 85,
-                    avatar: 'https://ui-avatars.com/api/?name=乐欣&background=4caf50&color=fff&size=128&length=2',
-                    grade: '初二',
-                    gender: '女',
+                    probability: 99,
+                    avatar: 'https://ui-avatars.com/api/?name=杨晨&background=4caf50&color=fff&size=128&length=2',
+                    grade: '希望学',
+                    gender: '男',
                     city: '北京',
-                    subject: '语文'
+                    subject: '计算机'
                 },
                 {
                     id: 'S002',
