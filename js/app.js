@@ -9,20 +9,37 @@ const App = {
             
             // 统计数据
             stats: {
-                bPlus: 56,
-                bPlusPercent: 40.1,
-                b: 56,
-                bPercent: 40.1,
-                bMinus: 56,
-                bMinusPercent: 40.0
+                bPlus: 0,
+                bPlusPercent: 0,
+                b: 0,
+                bPercent: 0,
+                bMinus: 0,
+                bMinusPercent: 0,
+                converted: 0,
+                conversionRate: 0
             },
+            
+            // 排行榜数据
+            topRanking: [
+                { id: 1, name: '李老师', conversionRate: 85.5 },
+                { id: 2, name: '王老师', conversionRate: 78.3 },
+                { id: 3, name: '刘老师', conversionRate: 72.1 }
+            ],
+            myRanking: {
+                rank: 5,
+                conversionRate: 65.8
+            },
+            
+            // 排行榜折叠状态
+            rankingCollapsed: false,
             
             // 筛选条件
             filters: {
                 name: '',
                 phone: '',
                 studentId: '',
-                intention: ''
+                intention: '',
+                converted: ''
             },
             
             // 分页
@@ -31,7 +48,7 @@ const App = {
             
             loading: false,
             
-            // 模拟完整学生数据（包含头像、年级、性别、城市、科目）
+            // 模拟完整学生数据（包含头像、年级、性别、城市、转化状态）
             allStudents: [
                 {
                     id: 'S001',
@@ -40,11 +57,11 @@ const App = {
                     courseId: 'C001',
                     courseName: '高中数学强化班',
                     probability: 99,
+                    converted: true,
                     avatar: 'https://ui-avatars.com/api/?name=杨晨&background=4caf50&color=fff&size=128&length=2',
                     grade: '希望学',
                     gender: '男',
-                    city: '北京',
-                    subject: '计算机'
+                    city: '北京'
                 },
                 {
                     id: 'S002',
@@ -53,11 +70,11 @@ const App = {
                     courseId: 'C002',
                     courseName: '初中英语冲刺班',
                     probability: 72,
+                    converted: true,
                     avatar: 'https://ui-avatars.com/api/?name=小红&background=ff9800&color=fff&size=128&length=2',
                     grade: '初二',
                     gender: '女',
-                    city: '上海',
-                    subject: '英语'
+                    city: '上海'
                 },
                 {
                     id: 'S003',
@@ -66,11 +83,11 @@ const App = {
                     courseId: 'C003',
                     courseName: '小学奥数提高班',
                     probability: 58,
+                    converted: false,
                     avatar: 'https://ui-avatars.com/api/?name=小强&background=2196f3&color=fff&size=128&length=2',
                     grade: '初三',
                     gender: '男',
-                    city: '广州',
-                    subject: '数学'
+                    city: '广州'
                 },
                 {
                     id: 'S004',
@@ -79,11 +96,11 @@ const App = {
                     courseId: 'C004',
                     courseName: '高中物理提升班',
                     probability: 91,
+                    converted: true,
                     avatar: 'https://ui-avatars.com/api/?name=小丽&background=9c27b0&color=fff&size=128&length=2',
                     grade: '初一',
                     gender: '女',
-                    city: '深圳',
-                    subject: '物理'
+                    city: '深圳'
                 },
                 {
                     id: 'S005',
@@ -92,11 +109,11 @@ const App = {
                     courseId: 'C005',
                     courseName: '初中数学基础班',
                     probability: 43,
+                    converted: false,
                     avatar: 'https://ui-avatars.com/api/?name=小华&background=f44336&color=fff&size=128&length=2',
                     grade: '初二',
                     gender: '男',
-                    city: '北京',
-                    subject: '化学'
+                    city: '北京'
                 },
                 {
                     id: 'S006',
@@ -105,11 +122,11 @@ const App = {
                     courseId: 'C006',
                     courseName: '初中物理进阶班',
                     probability: 78,
+                    converted: true,
                     avatar: 'https://ui-avatars.com/api/?name=刘明&background=3f51b5&color=fff&size=128&length=2',
                     grade: '初三',
                     gender: '男',
-                    city: '杭州',
-                    subject: '物理'
+                    city: '杭州'
                 },
                 {
                     id: 'S007',
@@ -118,11 +135,11 @@ const App = {
                     courseId: 'C007',
                     courseName: '高中化学实验班',
                     probability: 65,
+                    converted: false,
                     avatar: 'https://ui-avatars.com/api/?name=张婷&background=00bcd4&color=fff&size=128&length=2',
                     grade: '初一',
                     gender: '女',
-                    city: '成都',
-                    subject: '化学'
+                    city: '成都'
                 },
                 {
                     id: 'S008',
@@ -131,11 +148,11 @@ const App = {
                     courseId: 'C008',
                     courseName: '初中语文阅读班',
                     probability: 88,
+                    converted: true,
                     avatar: 'https://ui-avatars.com/api/?name=周杰&background=009688&color=fff&size=128&length=2',
                     grade: '初二',
                     gender: '男',
-                    city: '武汉',
-                    subject: '语文'
+                    city: '武汉'
                 },
                 {
                     id: 'S009',
@@ -144,11 +161,11 @@ const App = {
                     courseId: 'C009',
                     courseName: '初中英语口语班',
                     probability: 52,
+                    converted: false,
                     avatar: 'https://ui-avatars.com/api/?name=吴娜&background=8bc34a&color=fff&size=128&length=2',
                     grade: '初三',
                     gender: '女',
-                    city: '西安',
-                    subject: '英语'
+                    city: '西安'
                 },
                 {
                     id: 'S010',
@@ -157,11 +174,11 @@ const App = {
                     courseId: 'C010',
                     courseName: '高中数学竞赛班',
                     probability: 95,
+                    converted: false,
                     avatar: 'https://ui-avatars.com/api/?name=郑强&background=ff5722&color=fff&size=128&length=2',
                     grade: '初二',
                     gender: '男',
-                    city: '南京',
-                    subject: '数学'
+                    city: '南京'
                 },
                 {
                     id: 'S011',
@@ -170,11 +187,11 @@ const App = {
                     courseId: 'C011',
                     courseName: '初中生物基础班',
                     probability: 38,
+                    converted: false,
                     avatar: 'https://ui-avatars.com/api/?name=孙丽&background=cddc39&color=333&size=128&length=2',
                     grade: '初一',
                     gender: '女',
-                    city: '天津',
-                    subject: '生物'
+                    city: '天津'
                 },
                 {
                     id: 'S012',
@@ -183,11 +200,11 @@ const App = {
                     courseId: 'C012',
                     courseName: '初中历史精讲班',
                     probability: 70,
+                    converted: true,
                     avatar: 'https://ui-avatars.com/api/?name=钱勇&background=795548&color=fff&size=128&length=2',
                     grade: '初三',
                     gender: '男',
-                    city: '重庆',
-                    subject: '历史'
+                    city: '重庆'
                 }
             ],
             
@@ -264,6 +281,13 @@ const App = {
                         }
                     }
                     
+                    if (this.filters.converted) {
+                        const isConverted = this.filters.converted === 'true';
+                        if (student.converted !== isConverted) {
+                            match = false;
+                        }
+                    }
+                    
                     return match;
                 });
                 
@@ -276,16 +300,20 @@ const App = {
         updateStats() {
             // 统计数据固定，基于所有学生
             const total = this.allStudents.length;
-            const bPlus = this.allStudents.filter(s => s.probability >= 70).length;
-            const b = this.allStudents.filter(s => s.probability >= 40 && s.probability < 70).length;
-            const bMinus = this.allStudents.filter(s => s.probability < 40).length;
+            const unconvertedStudents = this.allStudents.filter(s => !s.converted);
+            const bPlus = unconvertedStudents.filter(s => s.probability >= 70).length;
+            const b = unconvertedStudents.filter(s => s.probability >= 40 && s.probability < 70).length;
+            const bMinus = unconvertedStudents.filter(s => s.probability < 40).length;
+            const converted = this.allStudents.filter(s => s.converted).length;
             
             this.stats.bPlus = bPlus;
-            this.stats.bPlusPercent = total > 0 ? ((bPlus / total) * 100).toFixed(1) : 0;
+            this.stats.bPlusPercent = unconvertedStudents.length > 0 ? ((bPlus / unconvertedStudents.length) * 100).toFixed(1) : 0;
             this.stats.b = b;
-            this.stats.bPercent = total > 0 ? ((b / total) * 100).toFixed(1) : 0;
+            this.stats.bPercent = unconvertedStudents.length > 0 ? ((b / unconvertedStudents.length) * 100).toFixed(1) : 0;
             this.stats.bMinus = bMinus;
-            this.stats.bMinusPercent = total > 0 ? ((bMinus / total) * 100).toFixed(1) : 0;
+            this.stats.bMinusPercent = unconvertedStudents.length > 0 ? ((bMinus / unconvertedStudents.length) * 100).toFixed(1) : 0;
+            this.stats.converted = converted;
+            this.stats.conversionRate = total > 0 ? ((converted / total) * 100).toFixed(1) : 0;
         },
         
         getLevelLabel(probability) {
@@ -323,6 +351,31 @@ const App = {
             this.currentPage = page;
             // 滚动到顶部
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        },
+        
+        resetFilters() {
+            this.filters = {
+                name: '',
+                phone: '',
+                studentId: '',
+                intention: '',
+                converted: ''
+            };
+            this.search();
+        },
+        
+        callPhone(phone) {
+            console.log('拨打电话：', phone);
+            alert(`准备拨打电话：${phone}`);
+        },
+        
+        contactWechat(studentId) {
+            console.log('企微联系学生：', studentId);
+            alert(`准备通过企业微信联系学生ID：${studentId}`);
+        },
+        
+        toggleRanking() {
+            this.rankingCollapsed = !this.rankingCollapsed;
         }
     },
     

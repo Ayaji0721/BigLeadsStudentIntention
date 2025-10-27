@@ -33,23 +33,17 @@ body {
 
 .brand-logo {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
+    background: #d32f2f;
+    padding: 8px 16px;
+    border-radius: 8px;
 }
 
-.logo-text {
-    font-size: 28px;
-    font-weight: 700;
-    color: #d32f2f;
-    line-height: 1;
-    letter-spacing: 1px;
-    margin-bottom: 2px;
-}
-
-.logo-slogan {
-    font-size: 11px;
-    color: #333;
-    letter-spacing: 0.5px;
+.logo-image {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 .nav-divider {
@@ -151,6 +145,190 @@ body {
     color: #999;
 }
 
+.stat-card-4 {
+    border-left: 4px solid #722ed1;
+}
+
+/* 右侧悬浮排行榜 */
+.floating-ranking {
+    position: fixed;
+    right: 24px;
+    top: 120px;
+    width: 260px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+    overflow: hidden;
+}
+
+.floating-ranking-header {
+    background: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+    color: white;
+    padding: 12px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.collapse-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+}
+
+.collapse-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.floating-ranking.collapsed {
+    width: 44px;
+    padding: 0;
+}
+
+.floating-ranking.collapsed .floating-ranking-content {
+    display: none;
+}
+
+.floating-ranking.collapsed .floating-ranking-header {
+    padding: 8px;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.floating-ranking.collapsed .ranking-icon {
+    font-size: 16px;
+}
+
+.floating-ranking.collapsed .collapse-btn {
+    width: 24px;
+    height: 24px;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.floating-ranking.collapsed .ranking-title-text {
+    display: none !important;
+}
+
+.floating-ranking.collapsed .ranking-icon {
+    display: block;
+    margin: 0 auto;
+}
+
+.ranking-icon {
+    font-size: 18px;
+}
+
+.floating-ranking-content {
+    padding: 12px;
+}
+
+.top3-section {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.mini-rank-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    transition: background 0.2s;
+}
+
+.mini-rank-item:hover {
+    background: #e9ecef;
+}
+
+.mini-medal {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 12px;
+    flex-shrink: 0;
+}
+
+.medal-1 {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    color: #333;
+}
+
+.medal-2 {
+    background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
+    color: #333;
+}
+
+.medal-3 {
+    background: linear-gradient(135deg, #cd7f32 0%, #e5a86d 100%);
+    color: white;
+}
+
+.mini-teacher {
+    flex: 1;
+    font-size: 13px;
+    font-weight: 500;
+    color: #333;
+}
+
+.mini-rate {
+    font-size: 13px;
+    font-weight: 600;
+    color: #d32f2f;
+}
+
+.my-rank-section {
+    padding: 10px;
+    background: #fff7e6;
+    border-radius: 6px;
+    border: 1px solid #ffd591;
+}
+
+.my-rank-label {
+    font-size: 11px;
+    color: #999;
+    margin-bottom: 4px;
+}
+
+.my-rank-value {
+    font-size: 14px;
+    font-weight: 600;
+    color: #d32f2f;
+}
+
+.converted-yes {
+    color: #52c41a;
+    font-weight: 600;
+}
+
+.converted-no {
+    color: #999;
+    font-weight: 500;
+}
+
 /* 筛选栏 */
 .filter-bar {
     background: white;
@@ -236,6 +414,24 @@ body {
 .search-btn-new:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
+}
+
+.reset-btn {
+    padding: 10px 32px;
+    background: white;
+    color: #666;
+    border: 1px solid #d9d9d9;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    height: 40px;
+}
+
+.reset-btn:hover {
+    color: #333;
+    border-color: #999;
 }
 
 /* 卡片容器 */
@@ -420,16 +616,18 @@ body {
     display: flex;
     gap: 10px;
     justify-content: flex-end;
+    flex-wrap: wrap;
 }
 
 .action-btn {
-    padding: 8px 20px;
+    padding: 8px 16px;
     border: none;
     border-radius: 8px;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
+    white-space: nowrap;
 }
 
 .action-btn-primary {
@@ -440,6 +638,18 @@ body {
 .action-btn-primary:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(211, 47, 47, 0.4);
+}
+
+.action-btn-secondary {
+    background: white;
+    color: #666;
+    border: 1px solid #d9d9d9;
+}
+
+.action-btn-secondary:hover {
+    color: #333;
+    border-color: #999;
+    transform: translateY(-2px);
 }
 
 /* 分页 */
@@ -601,12 +811,8 @@ body {
         gap: 12px;
     }
 
-    .logo-text {
-        font-size: 22px;
-    }
-
-    .logo-slogan {
-        font-size: 10px;
+    .logo-image {
+        height: 40px;
     }
 
     .nav-divider {
@@ -623,6 +829,10 @@ body {
 
     .stats-cards {
         grid-template-columns: 1fr;
+    }
+
+    .floating-ranking {
+        display: none;
     }
 
     .filter-bar {
@@ -667,12 +877,8 @@ body {
         gap: 8px;
     }
 
-    .logo-text {
-        font-size: 20px;
-    }
-
-    .logo-slogan {
-        font-size: 9px;
+    .logo-image {
+        height: 36px;
     }
 
     .nav-divider {

@@ -13,8 +13,7 @@
         <div class="top-nav">
             <div class="nav-left">
                 <div class="brand-logo">
-                    <div class="logo-text">希望学</div>
-                    <div class="logo-slogan">方法对了更有效</div>
+                    <img src="https://m.xiwang.com/resources/xiwang-silogan-transp-4JVkSwWn3xyyRXxbblADB.png" alt="希望学" class="logo-image">
                 </div>
                 <div class="nav-divider"></div>
                 <h1 class="nav-title">初中大Leads意向度</h1>
@@ -28,27 +27,33 @@
                 </div>
             </div>
         </div>
-
+        
         <!-- 主内容区域 -->
         <div class="main-container">
             <!-- 顶部统计卡片 -->
             <div class="stats-cards">
                 <div class="stat-card stat-card-1">
-                    <div class="stat-label">B+学员</div>
+                    <div class="stat-label">B+学员（未转化）</div>
                     <div class="stat-value">{{ stats.bPlus }}个</div>
                     <div class="stat-percent">占比{{ stats.bPlusPercent }}%</div>
                 </div>
                 <div class="stat-card stat-card-2">
-                    <div class="stat-label">B学员</div>
+                    <div class="stat-label">B学员（未转化）</div>
                     <div class="stat-value">{{ stats.b }}个</div>
                     <div class="stat-percent">占比{{ stats.bPercent }}%</div>
                 </div>
                 <div class="stat-card stat-card-3">
-                    <div class="stat-label">B-学员</div>
+                    <div class="stat-label">B-学员（未转化）</div>
                     <div class="stat-value">{{ stats.bMinus }}个</div>
                     <div class="stat-percent">占比{{ stats.bMinusPercent }}%</div>
                 </div>
+                <div class="stat-card stat-card-4">
+                    <div class="stat-label">已转化学员</div>
+                    <div class="stat-value">{{ stats.converted }}个</div>
+                    <div class="stat-percent">转化率{{ stats.conversionRate }}%</div>
+                </div>
             </div>
+
 
             <!-- 搜索筛选区域 -->
             <div class="filter-bar">
@@ -82,7 +87,16 @@
                         <option value="bMinus">B-学员</option>
                     </select>
                 </div>
+                <div class="filter-item">
+                    <label>转化状态</label>
+                    <select v-model="filters.converted" class="select-input">
+                        <option value="">全部</option>
+                        <option value="true">已转化</option>
+                        <option value="false">未转化</option>
+                    </select>
+                </div>
                 <button class="search-btn-new" @click="search">查询</button>
+                <button class="reset-btn" @click="resetFilters">重置</button>
             </div>
 
             <!-- 学生卡片列表 -->
@@ -135,8 +149,8 @@
                                 <span class="info-value">{{ student.id }}</span>
                             </div>
                             <div class="info-item">
-                                <span class="info-label">课程ID：</span>
-                                <span class="info-value">{{ student.courseId }}</span>
+                                <span class="info-label">课程名称：</span>
+                                <span class="info-value">{{ student.courseName }}</span>
                             </div>
                             <div class="info-item">
                                 <span class="info-label">意向度：</span>
@@ -144,8 +158,20 @@
                                     {{ student.probability }}%
                                 </span>
                             </div>
+                            <div class="info-item">
+                                <span class="info-label">转化状态：</span>
+                                <span class="info-value" :class="student.converted ? 'converted-yes' : 'converted-no'">
+                                    {{ student.converted ? '已转化' : '未转化' }}
+                                </span>
+                            </div>
                         </div>
                         <div class="card-actions">
+                            <button class="action-btn action-btn-secondary" @click="callPhone(student.phone)">
+                                📞 电话联系
+                            </button>
+                            <button class="action-btn action-btn-secondary" @click="contactWechat(student.id)">
+                                💬 企微联系
+                            </button>
                             <button class="action-btn action-btn-primary" @click="navigateToDetail(student.id)">
                                 查看详情
                             </button>
@@ -179,6 +205,30 @@
                 >
                     ›
                 </button>
+            </div>
+        </div>
+        
+        <!-- 右侧悬浮排行榜 -->
+        <div class="floating-ranking" :class="{ collapsed: rankingCollapsed }">
+            <div class="floating-ranking-header" @click="toggleRanking">
+                <span class="ranking-icon">🏆</span>
+                <span v-if="!rankingCollapsed" class="ranking-title-text">转化率排行</span>
+                <button class="collapse-btn" @click.stop="toggleRanking">
+                    {{ rankingCollapsed ? '‹' : '›' }}
+                </button>
+            </div>
+            <div class="floating-ranking-content">
+                <div class="top3-section">
+                    <div v-for="(item, index) in topRanking" :key="item.id" class="mini-rank-item">
+                        <div class="mini-medal" :class="'medal-' + (index + 1)">{{ index + 1 }}</div>
+                        <div class="mini-teacher">{{ item.name }}</div>
+                        <div class="mini-rate">{{ item.conversionRate }}%</div>
+                    </div>
+                </div>
+                <div class="my-rank-section">
+                    <div class="my-rank-label">我的排名</div>
+                    <div class="my-rank-value">第{{ myRanking.rank }}名 · {{ myRanking.conversionRate }}%</div>
+                </div>
             </div>
         </div>
     </div>
